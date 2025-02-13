@@ -48,13 +48,19 @@ public class BallController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
     }
 
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+    }
+
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && IsGrounded())
         {
             rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         }
     }
+
 
     private void FixedUpdate()
     {
